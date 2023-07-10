@@ -2,7 +2,8 @@
 ## Overview
 In this project, I first cleaned a database of text messages to prepare them for a classification model (lower case, remove stop words, lemmatization). I then created a pipeline for vectorizing the text before passing it to a model for training. After performing a GridSearch on a few different model architectures, I settled on XGBoost as tree-based (and boosted) models generally perform better on a sparse dataset (which was the case for my text-based dataset here). This repo contains the final weights of the trained pipeline in `models/classifier.pkl`. 
 
-You can see this model in action by following the usage instructions (skip step 1 if you don't want to re-train the model). This will open up a local web server where you can view some visualizations related to the app as well as make some predictions based on your own text.
+You can see this model in action by following the usage instructions (skip step 1 if you don't want to re-train the model). This will open up a local web server where you can view some visualizations related to the app as well as make some predictions based on your own text. The predictions will look like this:
+![Web page showing a text input at the top, then displaying the prediciton results of that input](images/prediction.png)
 
 ## Challenges
 In a classification task, it's important to have a balanced dataset. Otherwise, your model will end up predicting the minority class almost 100% of the time. In this collection of figures, it's clear that there were many message categories that were underrepresented in this dataset:
