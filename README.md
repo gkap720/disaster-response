@@ -1,5 +1,28 @@
 # Disaster Response Pipeline Project
 ## Overview
+When relief organizations are coordinating a reponse to a disaster, they need to understand where to allocate their resources. These organizations are often strapped for funding and personnel and so the question of allocating resources becomes even more dire. This is where machine learning can come into play, allowing us to have a quick, automated tool to help organizations allocate their resources while reducing the overhead of having to do this analysis manually. If we can help these organizations do their jobs, they can provide the most value with the limited resources they have and hopefully save more lives.
+
+## Project Structure
+- app
+    - static
+        - assets that will be displayed on the page
+    - templates
+        - html templates used to create the two main pages of the app
+    - run.py
+        - file containing the main logic of the Flask app; here is where all the endpoints are defined
+- data
+    - directory where both the raw data and the cleaned db are stored
+    - process_data.py
+        - script defining the data cleaning process 
+- images
+    - collection of images used for the README
+- models
+    - classifier.pkl
+        - trained weights for the final pipeline
+    - train_classifier.py
+        - script defining the steps used to build and train the model
+
+## Technical Details
 In this project, I first cleaned a database of text messages to prepare them for a classification model (lower case, remove stop words, lemmatization). I then created a pipeline for vectorizing the text before passing it to a model for training. After performing a GridSearch on a few different model architectures, I settled on XGBoost as tree-based (and boosted) models generally perform better on a sparse dataset (which was the case for my text-based dataset here). This repo contains the final weights of the trained pipeline in `models/classifier.pkl`. 
 
 You can see this model in action by following the usage instructions (skip step 1 if you don't want to re-train the model). This will open up a local web server where you can view some visualizations related to the app as well as make some predictions based on your own text. The predictions will look like this:
