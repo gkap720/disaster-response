@@ -3,23 +3,23 @@
 When relief organizations are coordinating a reponse to a disaster, they need to understand where to allocate their resources. These organizations are often strapped for funding and personnel and so the question of allocating resources becomes even more dire. This is where machine learning can come into play, allowing us to have a quick, automated tool to help organizations allocate their resources while reducing the overhead of having to do this analysis manually. If we can help these organizations do their jobs, they can provide the most value with the limited resources they have and hopefully save more lives.
 
 ## Project Structure
-- app
-    - static
+- [app](app)
+    - [static](app/static)
         - assets that will be displayed on the page
-    - templates
+    - [templates](app/templates)
         - html templates used to create the two main pages of the app
-    - run.py
+    - [run.py](app/run.py)
         - file containing the main logic of the Flask app; here is where all the endpoints are defined
-- data
+- [data](data)
     - directory where both the raw data and the cleaned db are stored
-    - process_data.py
+    - [process_data.py](data/process_data.py)
         - script defining the data cleaning process 
-- images
+- [images](images)
     - collection of images used for the README
-- models
-    - classifier.pkl
+- [models](models)
+    - [classifier.pkl](models/classifier.pkl)
         - trained weights for the final pipeline
-    - train_classifier.py
+    - [train_classifier.py](models/train_classifier.py)
         - script defining the steps used to build and train the model
 
 ## Technical Details
