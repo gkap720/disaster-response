@@ -25,7 +25,7 @@ When relief organizations are coordinating a reponse to a disaster, they need to
 ## Technical Details
 In this project, I first cleaned a database of text messages to prepare them for a classification model (lower case, remove stop words, lemmatization). I then created a pipeline for vectorizing the text before passing it to a model for training. After performing a GridSearch on a few different model architectures, I settled on XGBoost as tree-based (and boosted) models generally perform better on a sparse dataset (which was the case for my text-based dataset here). This repo contains the final weights of the trained pipeline in `models/classifier.pkl`. 
 
-You can see this model in action by following the usage instructions (skip step 1 if you don't want to re-train the model). This will open up a local web server where you can view some visualizations related to the app as well as make some predictions based on your own text. The predictions will look like this:
+You can see this model in action by following the [usage instructions](#usage-instructions) (skip step 1 if you don't want to re-train the model). This will open up a local web server where you can view some visualizations related to the app as well as make some predictions based on your own text. The predictions will look like this:
 ![Web page showing a text input at the top, then displaying the prediciton results of that input](images/prediction.png)
 
 ## Challenges
@@ -46,7 +46,7 @@ With any classification problem, it's necessary to weigh the effects of Type I a
 In this situation, it's better to err on the side of caution. We want to predict as many true positives as we can while lowering the false negative rate. In terms of classification metrics, this would mean focusing on Recall over Precision. Because Recall and Precision are always inversely related, we can set some acceptable tradeoff point where we are able to maximize Recall while not losing too much Precision. If given enough time, we could also communicate with organizations that provide aid in these situations to get a better idea of which categories require the most ugent response. Based on this information, we could then apply different thresholds to each of our categories to make sure that response teams are efficiently splitting their resources.
 
 In practice, this means looking at the Precision-Recall Curve, deciding on a tradeoff, finding our new prediction threshold, and then implementing that threshold when making the prediction. Most classification models use 0.5 as their prediction threshold, but we can simply apply our threshold to the raw probability predictions. This could help us to reduce false negatives and make sure that people asking for help get the aid they need.
-## Usage Instructions:
+## Usage Instructions
 1. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
