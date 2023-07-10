@@ -40,16 +40,12 @@ model = joblib.load("../models/classifier.pkl")
 def index():
     
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
     cats = df.iloc[:, 4:]
     category_counts = cats.sum(axis=0)
-    category_names = list(cats.columns)
 
     unlabeled_count = (cats.sum(axis=1) == 0).sum()
     underrepresented_cats = category_counts[category_counts < 500]
-    underrepresented_cat_names = list(underrepresented_cats.index)
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     fig1 = px.bar(category_counts, color=range(0, len(category_counts)), 
                 color_continuous_scale='Viridis',
                 title="Distribution of Message Categories", 

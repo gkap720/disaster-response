@@ -15,13 +15,29 @@ from xgboost import XGBClassifier
 from sklearn.model_selection import GridSearchCV
 
 def load_data(database_filepath):
+    """
+    Loads data from a given database
+    Args:
+        database_filepath: path to an SQLite database
+    Returns:
+        X: the unaltered text messages
+        y: all of the categories related to those messages
+        columns: list of all of the category names
+    """
     engine = create_engine(f'sqlite:///{database_filepath}')
     df = pd.read_sql_table("message", engine)
     X = df["message"]
     y = df.iloc[:, 4:]
     return X, y, list(y.columns)
 
-def tokenize(text: str):
+def tokenize(text: str) -> list(str):
+    """
+    Function which cleans raw text and tokenizes it
+    Args:
+        text: raw text to clean
+    Returns:
+        text: cleaned text
+    """
     # make everything lower case
     text = text.lower()
     # remove punctuation
@@ -39,6 +55,13 @@ def tokenize(text: str):
 
 
 def build_model():
+    """
+    Returns a pipeline which vectorizes text and contains a classifier
+    Args:
+        None
+    Returns:
+        pipeline: untrained sklearn pipeline object
+    """
     pipeline = Pipeline([
         ('vectorizer', TfidfVectorizer(tokenizer=tokenize, min_df=5, ngram_range=(2,2))),
         ('classifier', MultiOutputClassifier(XGBClassifier(n_estimators=2000, eta=0.2, min_child_weight=2)))
@@ -49,6 +72,16 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    """
+    Evaluates model and prints out metrics based on each category
+    Args:
+        model: trained pipeline
+        X_test: test data
+        Y_test: test targets
+        category_names: list of all categories
+    Returns:
+        None
+    """
     preds = model.predict(X_test)
     for i, cat in enumerate(category_names):
         print("Metrics for ", cat)
@@ -56,6 +89,14 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """
+    Saves trained model to disk
+    Args:
+        model: trained sklearn pipeline
+        model_filepath: path to save model to (should have .pkl extension)
+    Returns:
+        None
+    """
     joblib.dump(model, model_filepath)
 
 
